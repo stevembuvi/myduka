@@ -22,3 +22,19 @@ def insert_products():
 insert_products()
 products_data=get_products()
 print(products_data)
+
+def get_sales():
+     cur.execute("select*from sales")
+     sales_data=cur.fetchall()
+     return sales_data
+sales_data=get_sales()
+print(sales_data)
+
+def insert_sales():
+     cur.execute("insert into sales(pid,quantity)values(001,2235)")
+     cur.execute("insert into sales(pid,quantity)values(002,1100)")  
+     conn.commit()
+
+insert_sales()
+sales_data=get_sales()
+print(sales_data)
