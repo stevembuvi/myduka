@@ -18,7 +18,6 @@ def insert_products():
       cur.execute("insert into products(name,buying_price,selling_price)values('asus lapop',40000,50000)")
       conn.commit()
     
-
 insert_products()
 products_data=get_products()
 print(products_data)
