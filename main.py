@@ -1,35 +1,35 @@
-from flask import Flask
+from flask import Flask, render_template
 
 #flask instance
 app=Flask(__name__)
 
-@app.route('/')
-def home():
-    return "Hello World"
+@app.route('/') #Decorator Function
+def home():  # View func
+    return render_template('index.html')
 
 @app.route('/products')
 def products():
-    return "Products Page"
+    return render_template('products.html')
 
 @app.route('/sales')
 def sales():
-    return "Sales Page"
+    return render_template('sales.html')
 
 @app.route('/stock')
 def stock():
-    return "Stock Page"
+    return render_template('stock.html')
 
 @app.route('/dashboard')
 def dashboard():
-    return "Dashboard"
+    return render_template('dashboard.html')
 
 @app.route('/register')
 def register():
-    return "Registration Page"
+    return render_template('register.html')
 
 @app.route('/login')
 def login():
-    return "Login Page"
+    return render_template('login.html')
 
 #starts server to run app
 app.run(debug=True)
