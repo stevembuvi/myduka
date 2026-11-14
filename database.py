@@ -12,7 +12,7 @@ def get_products():
     return products_data
 
 products_data=get_products()
-print(products_data)
+
 
 def insert_products():
       cur.execute("insert into products(name,buying_price,selling_price)values('asus lapop',40000,50000)")
@@ -20,14 +20,14 @@ def insert_products():
     
 insert_products()
 products_data=get_products()
-print(products_data)
+
 
 def get_sales():
      cur.execute("select*from sales")
      sales_data=cur.fetchall()
      return sales_data
 sales_data=get_sales()
-print(sales_data)
+
 
 def insert_sales():
      cur.execute("insert into sales(pid,quantity)values(001,2235)")
@@ -36,7 +36,20 @@ def insert_sales():
 
 insert_sales()
 sales_data=get_sales()
-print(sales_data)
+
+def get_stock():
+     cur.execute("select*from stock")
+     stock_data=cur.fetchall()
+     return stock_data
+stock_data=get_stock()
+
+def insert_stock():
+     cur.execute("insert into stock(pid,stock_quantity)values(001,1000)")
+     cur.execute("insert into stock(pid,stock_quantity)values(002,400)")
+     conn.commit()
+
+insert_stock()
+stock_data=get_stock()
 
 # Reusable function
 def insert_products(prod_details):
@@ -53,7 +66,7 @@ insert_products(product3)
 insert_products(product4)
 
 products_data=get_products()
-print(products_data)
+
 
 def fetch_sales():
      cur.execute("select*from sales")
@@ -70,7 +83,7 @@ insert_sales(sale1)
 insert_sales(sale2)
 
 sales_data=fetch_sales()
-print(sales_data)
+
 
 def get_sales_per_product():
     cur.execute(
@@ -82,7 +95,7 @@ def get_sales_per_product():
     return sales_per_product
 
 sales_per_product = get_sales_per_product()
-print(sales_per_product)
+
 
 def get_sales_per_day():
     cur.execute("""
@@ -95,7 +108,7 @@ def get_sales_per_day():
     return sales_per_day
 
 sales_per_day = get_sales_per_day()
-print(sales_per_day)
+
 
 def get_profit_per_product():
     cur.execute("""
@@ -112,7 +125,7 @@ def get_profit_per_product():
     return profit_per_product
 
 profit_per_product=get_profit_per_product()
-print(profit_per_product)
+
 
 def get_profit_per_day():
      cur.execute("""   
@@ -125,5 +138,5 @@ def get_profit_per_day():
      return profit_per_day
 
 profit_per_day=get_profit_per_day()
-print(profit_per_day)
+
 
