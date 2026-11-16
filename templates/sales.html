@@ -3,8 +3,30 @@
 {% block content %}
 <div>
     <p>My Sales Page</p>
-    <p>This is Sales Data.</p>
-    <p>{{sales_data}}</p>
+    <div>
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th>Sales ID</th>
+                    <th>Product ID</th>
+                    <th>Sales Quantity</th>
+                    <th>Date Sold</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sales in sales_data %}
+                <tr>
+                    <td>{{ sales[0] }}</td>
+                    <td>{{ sales[1] }}</td>
+                    <td>{{ sales[2] }}</td>
+                    <td>{{ sales[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
 
 </div>
 {% endblock %}

@@ -3,9 +3,28 @@
 {% block content %}
 <div>
     <p>My Stock Page</p>
-    <p>This is Stock Data</p>
-
-    <p>{{stock_data}}</p>
+  <div>
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th>Stock ID</th>
+                    <th>Product ID</th>
+                    <th>Stock Quantity</th>
+                    <th>Date Stocked</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stock_data %}
+                <tr>
+                    <td>{{ stock[0] }}</td>
+                    <td>{{ stock[1] }}</td>
+                    <td>{{ stock[2] }}</td>
+                    <td>{{ stock[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 </div>
 {% endblock %}
