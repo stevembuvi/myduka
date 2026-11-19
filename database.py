@@ -51,11 +51,15 @@ def insert_stock():
 insert_stock()
 stock_data=get_stock()
 
-# Reusable function
+# Reusable functions
 def insert_products(prod_details):
      cur.execute("insert into products(name,buying_price,selling_price)values(%s,%s,%s)",prod_details)
      conn.commit()
 
+def insert_sales(sales_details):
+    cur = conn.cursor()
+    cur.execute("INSERT INTO sales(pid, quantity) VALUES(%s, %s)",sales_details)
+    conn.commit()
 product1=('iphone 14',50000,60000)
 product2=('rice',200,250)
 product3=('milk',65,80)
