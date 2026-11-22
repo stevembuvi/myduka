@@ -1,42 +1,86 @@
 {% extends "base.html" %}
-{% block title %} Stock Page {% endblock %}
+
+{% block title %}Stock Page{% endblock %}
+
 {% block content %}
+
 <div>
     <p>My Stock Page</p>
+
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary"
+            data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Stock
     </button>
+
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+
         <div class="modal-dialog">
             <div class="modal-content">
+
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Adding Stock</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Adding Stock
+                    </h5>
+
+                    <button type="button" class="btn-close"
+                            data-bs-dismiss="modal"></button>
                 </div>
+
                 <div class="modal-body">
-                    <form method="post" action="/add_stock">
+
+                    <form method="POST" action="/add_stock">
+
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Stock ID</label>
-                            <input type="text" name="st_id" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
+                            <label class="form-label">Select Product</label>
+
+                            <select name="p_id" class="form-select" required>
+                                <option value="">Choose Product</option>
+
+                                {% for product in products_data %}
+                                <option value="{{ product[0] }}">
+                                    {{ product[1] }}
+                                </option>
+                                {% endfor %}
+
+                            </select>
                         </div>
+
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Stock Quantity</label>
-                            <input type="number" name="st_quantity" class="form-control" id="exampleInputPassword1">
-                        </div> 
+                            <label class="form-label">Stock Quantity</label>
+
+                            <input type="number" name="st_quantity"
+                                   class="form-control" min="1" required>
+                        </div>
+
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="a_stock" class="btn btn-primary">Add Stock</button>
+
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Add Stock
+                            </button>
+
                         </div>
+
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
-  <div>
+
+    <!-- Stock Table -->
+    <div>
         <table id="example" class="display">
+
             <thead>
                 <tr>
                     <th>Stock ID</th>
@@ -45,7 +89,9 @@
                     <th>Date Stocked</th>
                 </tr>
             </thead>
+
             <tbody>
+
                 {% for stock in stock_data %}
                 <tr>
                     <td>{{ stock[0] }}</td>
@@ -54,9 +100,12 @@
                     <td>{{ stock[3] }}</td>
                 </tr>
                 {% endfor %}
+
             </tbody>
+
         </table>
     </div>
 
 </div>
+
 {% endblock %}

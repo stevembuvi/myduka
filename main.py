@@ -15,6 +15,7 @@ def home():  # View func
 def products():
     products_data = get_products()
     return render_template('products.html',products_data = products_data)
+
 @app.route('/add_products',methods=['GET','POST'])
 def add_products():
     if request.method =="POST":
@@ -30,14 +31,17 @@ def add_products():
 @app.route('/sales')
 def sales():
     sales_data = get_sales()
-    return render_template('sales.html',sales_data = sales_data )
+    products_data=get_products()
+    return render_template('sales.html',sales_data = sales_data, products_data=products_data)
+
+
 @app.route('/add_sales',methods=['GET','POST'])
 def add_sales():
     if request.method =="POST":
-        sales_id=request.form['s_id']
-        sales_quantity=request.form['s_quantity']
+        product_id=request.form['p_id']
+        sales_quantity=request.form['st_quantity']
         
-        new_sales=(sales_id,sales_quantity)
+        new_sales=(product_id,sales_quantity)
         insert_sales(new_sales)
         print("Sales added successfully")
     return redirect(url_for('sales'))
@@ -45,15 +49,16 @@ def add_sales():
 @app.route('/stock')
 def stock():
     stock_data = get_stock()
-    return render_template('stock.html',stock_data = stock_data)
+    products_data=get_products()
+    return render_template('stock.html',stock_data = stock_data,products_data=products_data)
 
 @app.route('/add_stock',methods=['GET','POST'])
 def add_stock():
     if request.method =="POST":
-        stock_id=request.form['st_id']
+        product_id=request.form['p_id']
         stock_quantity=request.form['st_quantity']
         
-        new_stock=(stock_id,stock_quantity)
+        new_stock=(product_id,stock_quantity)
         insert_stock(new_stock)
         print("Stock added successfully")
     return redirect(url_for('stock'))

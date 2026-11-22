@@ -43,13 +43,11 @@ def get_stock():
      return stock_data
 stock_data=get_stock()
 
-def insert_stock():
-     cur.execute("insert into stock(pid,stock_quantity)values(001,1000)")
-     cur.execute("insert into stock(pid,stock_quantity)values(002,400)")
-     conn.commit()
+def insert_stock(new_stock):
+    sql = """INSERT INTO stock (pid, stock_quantity)VALUES (%s, %s)"""
+    cur.execute(sql, new_stock)
+    conn.commit()
 
-insert_stock()
-stock_data=get_stock()
 
 # Reusable functions
 def insert_products(prod_details):
