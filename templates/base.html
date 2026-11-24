@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/3.1.5/css/dataTables.dataTables.min.css">
   <!-- datatables js cdn link -->
   <script src="https://cdn.datatables.net/3.1.5/js/dataTables.min.js"></script>
+  <!-- chart  js cdn link-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <title>{% block title %} Home Page {% endblock %}</title>
 
 <body>
@@ -35,19 +37,31 @@
             <a class="nav-link" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+            <a class="nav-link" href="/register">Register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <div class="container">
+    <div>
+      {% with messages= get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-success alert-dismissible" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
 
     {% block content %}
 
@@ -66,8 +80,7 @@
           </h2>
           <p class="footer-description">
             Simplifying inventory and sales management
-            for your business. Track stock, manage sales,
-            and keep your business moving forward.
+            for your business.
           </p>
         </div>
         <!-- Quick Links -->
