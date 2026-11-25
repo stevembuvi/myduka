@@ -1,8 +1,9 @@
-from flask import Flask, render_template,request,redirect,url_for,flash
+from flask import Flask, render_template,request,redirect,url_for,flash,session
 from database import get_products,insert_products
 from database import get_sales,insert_sales,get_profit_per_day,get_profit_per_product,get_sales_per_day,get_sales_per_product,insert_user,check_user_exists
 from database import get_stock,insert_stock
 from flask_bcrypt import  Bcrypt
+from functools import wraps
 
  
 
@@ -17,7 +18,16 @@ bcrypt = Bcrypt(app)
 def home():  # View function 
     return render_template('index.html')
 
+def login_required(f):
+    @wraps(f)
+    def protected(*args,**kwargs):
+        if 'email' not in session:
+            return redirect(url_for('login'))
+        return f(*args,**kwargs)
+    return protected
+
 @app.route('/products')
+@login_required
 def products():
     products_data = get_products()
     return render_template('products.html',products_data = products_data)
@@ -35,6 +45,7 @@ def add_products():
     return redirect(url_for('products'))
 
 @app.route('/sales')
+@login_required
 def sales():
     sales_data = get_sales()
     products_data=get_products()
@@ -139,6 +150,7 @@ def login():
 
             if check_password:
                 flash("Logged in successfully",'success')
+                session['email'] = email
                 redirect(url_for('dashboard'))
             else:
                 flash("Incorrect password ,try again",'danger')
@@ -146,6 +158,12 @@ def login():
 
 
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('email',None)
+    flash('Logged out successfully')
+    return redirect(url_for('login'))
 
 #starts server to run app
 app.run(debug=True)
